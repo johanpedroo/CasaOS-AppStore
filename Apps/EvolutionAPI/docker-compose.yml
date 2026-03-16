@@ -1,12 +1,13 @@
 name: evolution-api
 services:
   evolution-api:
-    image: atendai/evolution-api:v2.2.3
+    image: evoapicloud/evolution-api:latest
     deploy:
       resources:
         reservations:
           memory: 256M
-    network_mode: bridge
+    networks:
+      - evolution-net
     ports:
       - target: 8080
         published: "8080"
@@ -26,6 +27,11 @@ services:
       - DATABASE_SAVE_DATA_CHATS=true
       - DATABASE_SAVE_DATA_LABELS=true
       - DATABASE_SAVE_DATA_HISTORIC=true
+      - CACHE_REDIS_ENABLED=true
+      - CACHE_REDIS_URI=redis://evolution-redis:6379
+      - CACHE_REDIS_PREFIX_KEY=evolution
+      - CACHE_REDIS_SAVE_INSTANCES=false
+      - CACHE_LOCAL_ENABLED=false
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/instances
@@ -47,6 +53,15 @@ services:
         - container: DATABASE_CONNECTION_URI
           description:
             en_us: "Database connection string (leave empty to use local SQLite)"
+        - container: CACHE_REDIS_ENABLED
+          description:
+            en_us: "Enable Redis cache (true/false)"
+        - container: CACHE_REDIS_URI
+          description:
+            en_us: "Redis connection URI"
+        - container: CACHE_REDIS_PREFIX_KEY
+          description:
+            en_us: "Redis key prefix"
       ports:
         - container: "8080"
           description:
