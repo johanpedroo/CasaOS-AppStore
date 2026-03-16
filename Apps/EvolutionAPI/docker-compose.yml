@@ -90,7 +90,7 @@ x-casaos:
   tagline:
     en_us: REST API for WhatsApp multi-device integration
     pt_br: API REST para integração multi-dispositivo com WhatsApp
-  thumbnail: https://cdn.jsdelivr.net/gh/johanpedroo/CasaOS-AppStore@main/Apps/EvolutionAPI/thumbnail.png
+  thumbnail: https://meta-q.cdn.bubble.io/f1735656025985x589899456761148800/evolution-logo.png
   tips:
     before_install:
       en_us: |
