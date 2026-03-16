@@ -1,68 +1,99 @@
 {
 	"version": "2.0",
-	"title": "EvolutionAPI",
-	"name": "EvolutionAPI",
-	"icon": "https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/2FAuth/icon.png",
-	"tagline": "A web app to manage your Two-Factor Authentication (2FA) accounts and generate their security codes",
-	"overview": "2FAuth is a web based self-hosted alternative to One Time Passcode (OTP) generators like Google Authenticator, designed for both mobile and desktop.",
-	"thumbnail": "https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/2FAuth/thumbnail.png",
+	"title": "Evolution API",
+	"name": "evolution-api",
+	"icon": "https://cdn.jsdelivr.net/gh/johanpedroo/CasaOS-AppStore@main/Apps/EvolutionAPI/icon.png",
+	"tagline": "REST API for WhatsApp multi-device integration",
+	"overview": "Evolution API is a powerful REST API for WhatsApp integration. It allows you to create and manage WhatsApp instances, send and receive messages, manage groups, and much more through a simple HTTP interface.",
+	"thumbnail": "https://cdn.jsdelivr.net/gh/johanpedroo/CasaOS-AppStore@main/Apps/EvolutionAPI/thumbnail.png",
 	"screenshots": [
-		"https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/2FAuth/screenshot-1.png",
-		"https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/2FAuth/screenshot-2.png",
-		"https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/2FAuth/screenshot-3.png"
+		"https://cdn.jsdelivr.net/gh/johanpedroo/CasaOS-AppStore@main/Apps/EvolutionAPI/screenshot-1.png",
+		"https://cdn.jsdelivr.net/gh/johanpedroo/CasaOS-AppStore@main/Apps/EvolutionAPI/screenshot-2.png",
+		"https://cdn.jsdelivr.net/gh/johanpedroo/CasaOS-AppStore@main/Apps/EvolutionAPI/screenshot-3.png"
 	],
 	"category": [
-		"Utilities"
+		"Communication"
 	],
 	"developer": {
-		"name": "Bubka",
-		"website": "https://demo.2fauth.app",
+		"name": "AtendAI / EvolutionAPI",
+		"website": "https://doc.evolution-api.com",
 		"donate_text": "",
 		"donate_link": ""
 	},
 	"adaptor": {
-		"name": "CasaOS Team",
-		"website": "https://www.casaos.io",
+		"name": "johanpedro",
+		"website": "",
 		"donate_text": "",
 		"donate_link": ""
 	},
-	"support": "https://discord.gg/knqAbbBbeX",
-	"website": "",
+	"support": "https://evolution-api.com",
+	"website": "https://doc.evolution-api.com",
 	"container": {
-		"image": "2fauth/2fauth:latest",
+		"image": "atendai/evolution-api:v2.2.3",
 		"shell": "sh",
 		"privileged": false,
 		"network_model": "bridge",
 		"web_ui": {
-			"http": "8000",
+			"http": "8080",
 			"path": "/"
 		},
 		"health_check": "",
-		"envs": [],
+		"envs": [
+			{
+				"key": "SERVER_URL",
+				"value": "http://localhost:8080",
+				"configurable": "yes",
+				"description": "Server URL for the Evolution API"
+			},
+			{
+				"key": "AUTHENTICATION_API_KEY",
+				"value": "mude-me",
+				"configurable": "yes",
+				"description": "API authentication key (change this!)"
+			},
+			{
+				"key": "LOG_LEVEL",
+				"value": "ERROR",
+				"configurable": "yes",
+				"description": "Log level: ERROR, WARN, DEBUG, LOG"
+			},
+			{
+				"key": "DATABASE_PROVIDER",
+				"value": "postgresql",
+				"configurable": "yes",
+				"description": "Database provider (postgresql or mongodb)"
+			},
+			{
+				"key": "DATABASE_CONNECTION_URI",
+				"value": "",
+				"configurable": "yes",
+				"description": "Database connection string"
+			}
+		],
 		"ports": [
 			{
-				"container": "8000",
-				"host": "8000",
+				"container": "8080",
+				"host": "8080",
 				"type": "tcp",
 				"allocation": "automatic",
-				"configurable": "no",
-				"description": ""
+				"configurable": "advanced",
+				"description": "Evolution API HTTP Port"
 			}
 		],
 		"volumes": [
 			{
-				"container": "/2fauth",
-				"host": "/DATA/AppData/$AppID",
+				"container": "/evolution/instances",
+				"host": "/DATA/AppData/$AppID/instances",
 				"mode": "rw",
 				"allocation": "automatic",
 				"configurable": "no",
-				"description": ""
+				"description": "Evolution API instances data"
 			}
 		],
 		"devices": [],
 		"constraints": {
-			"min_memory": 64,
-			"min_storage": 128
+			"min_memory": 256,
+			"min_storage": 512
 		},
 		"restart_policy": "always",
 		"sysctls": [],
@@ -79,11 +110,16 @@
 		"upnp": false
 	},
 	"tips": {
-		"before_install": []
+		"before_install": [
+			{
+				"content": "After installation, change the AUTHENTICATION_API_KEY environment variable to a strong, unique key. The API will be available at http://your-casaos-ip:8080.",
+				"value": ""
+			}
+		]
 	},
 	"changelog": {
 		"latest_updates": "",
-		"url": ""
+		"url": "https://github.com/EvolutionAPI/evolution-api/releases"
 	},
-	"latest_update_date": ""
+	"latest_update_date": "2026-03-16"
 }
